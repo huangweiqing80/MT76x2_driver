@@ -3264,7 +3264,7 @@ BOOLEAN CFG80211_Register(IN VOID *pAd, IN struct device *pDev, IN struct net_de
 	RTMP_DRIVER_80211_RESET(pAd);
 	RTMP_DRIVER_80211_SCAN_STATUS_LOCK_INIT(pAd, TRUE);
 
-#ifdef CONFIG_STA_SUPPORT	/* reg notifier in AP case 7620&7612 will hang */
+#ifdef CONFIG_STA_SUPPORT1	/* reg notifier in AP case 7620&7612 will hang */
 	err = register_netdevice_notifier(&cfg80211_netdev_notifier);
 	if (err)
 		CFG80211DBG(RT_DEBUG_ERROR, ("80211> Failed to register notifierl %d\n", err));
