@@ -4477,7 +4477,7 @@ int andes_wow_disable(struct _RTMP_ADAPTER *ad)
 
 	RTMP_CLEAR_SUSPEND_FLAG(ad, fRTMP_ADAPTER_SUSPEND_STATE_SUSPENDING);
 	RTMP_CLEAR_SUSPEND_FLAG(ad, fRTMP_ADAPTER_SUSPEND_STATE_SUSPENDED);
-	RTMPInitTimer(ad, &ad->Mlme.PeriodicTimer, GET_TIMER_FUNCTION(MlmePeriodicExec), ad, TRUE);
+	RTMPInitTimer(ad, &ad->Mlme.PeriodicTimer, GET_TIMER_FUNCTION(MlmePeriodicExec), ad, FALSE);
 	RTMPSetTimer(&ad->Mlme.PeriodicTimer, MLME_TASK_EXEC_INTV);
 
 	if (INFRA_ON(ad))

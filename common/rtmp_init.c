@@ -4247,6 +4247,10 @@ VOID RTMPSwReset(RTMP_ADAPTER *pAd)
 	 */
 
 	DBGPRINT(RT_DEBUG_ERROR, ("Entering %s\n", __func__));
+
+        #ifdef NEW_WOW_SUPPORT
+        pAd->WOW_Cfg.bInSuspendMode = WOW_NOT_IN_SUSPEND;
+        #endif
 	/*
 	   1. Driver cancels all Bulk OUT URBs(skip)
 	   2. Disable MAC TX/RX (Set 0x41_1004 = 0x0)(skip)
