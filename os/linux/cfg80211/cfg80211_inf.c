@@ -1282,7 +1282,7 @@ VOID RTMP_CFG80211_VirtualIF_Remove(IN VOID *pAdSrc, IN PNET_DEV dev_p, IN UINT3
 			if (dev_p->ieee80211_ptr->sme_state == CFG80211_SME_CONNECTED)
 #endif
 				{
-				cfg80211_disconnected(dev_p, WLAN_REASON_DEAUTH_LEAVING, NULL, 0,
+				cfg80211_disconnected(dev_p, WLAN_REASON_DEAUTH_LEAVING, NULL, 0,TRUE,
 						      GFP_KERNEL);
 			}
 

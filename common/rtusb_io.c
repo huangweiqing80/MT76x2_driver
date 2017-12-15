@@ -1083,13 +1083,14 @@ NTSTATUS RTUSB_VendorRequest(IN PRTMP_ADAPTER pAd,
 #ifdef CONFIG_PM
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_SUSPEND))
+              DBGPRINT(RT_DEBUG_ERROR, ("WIFI device has been suspend\n"));
 		return NDIS_STATUS_SUSPEND;
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 #endif /* CONFIG_PM */
 #endif /* CONFIG_STA_SUPPORT */
 
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)) {
-		/*DBGPRINT(RT_DEBUG_ERROR, ("WIFI device has been disconnected\n")); */
+		DBGPRINT(RT_DEBUG_ERROR, ("WIFI device has been disconnected\n")); 
 		return NDIS_STATUS_FAILURE;
 	} else if (RTMP_TEST_PSFLAG(pAd, fRTMP_PS_MCU_SLEEP)) {
 		/* Do not print error message by default if in Radio_Off case. */

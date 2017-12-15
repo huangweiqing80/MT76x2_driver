@@ -220,7 +220,11 @@ NDIS_STATUS RTMPReadParametersHook(RTMP_ADAPTER *pAd)
 			DBGPRINT(RT_DEBUG_OFF, ("try default profile %d\n", retval));
 		} else {
 			/* TODO: need to roll back when convert into OSABL code */
-			fsize = (ULONG) srcf->f_dentry->d_inode->i_size;
+			#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0)) 
+                        fsize = (ULONG)srcf->f_path.dentry->d_inode->i_size;
+                        #else
+                        fsize = (ULONG)srcf->f_dentry->d_inode->i_size;
+                       #endif  //LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0) 
 			if (buf_size < (fsize + 1))
 				buf_size = fsize + 1;
 			os_alloc_vmem(pAd, (UCHAR **) &buffer, buf_size);

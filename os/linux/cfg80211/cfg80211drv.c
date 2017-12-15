@@ -1448,11 +1448,11 @@ VOID CFG80211_LostApInform(IN VOID *pAdCB)
 		    pAd->StaCfg.bChannelSwitchCountingDown &&
 		    pAd->CommonCfg.ChannelSwitchCount == 0) {
 			cfg80211_disconnected(pAd->net_dev, 0,
-					      &(pAd->CommonCfg.NewChannel), 1, GFP_KERNEL);
+					      &(pAd->CommonCfg.NewChannel), 1, TRUE,GFP_KERNEL);
 			pAd->StaCfg.bChannelSwitchCountingDown = FALSE;
 		} else
 #endif /* endif */
-			cfg80211_disconnected(pAd->net_dev, 0, NULL, 0, GFP_KERNEL);
+			cfg80211_disconnected(pAd->net_dev, 0, NULL, 0, TRUE,GFP_KERNEL);
 	}
 }
 #endif /*CONFIG_STA_SUPPORT */

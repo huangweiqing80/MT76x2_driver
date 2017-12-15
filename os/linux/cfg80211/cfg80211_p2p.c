@@ -1462,7 +1462,7 @@ VOID CFG80211_LostP2pGoInform(VOID *pAdCB, UINT16 Reason)
 #endif
 #endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3,12,0) */
 			{
-			cfg80211_disconnected(pNetDev, Reason, NULL, 0,
+			cfg80211_disconnected(pNetDev, Reason, NULL, 0,TRUE,
 					      GFP_KERNEL);
 			}
 	    }

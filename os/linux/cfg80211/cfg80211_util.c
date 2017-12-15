@@ -1177,12 +1177,12 @@ VOID CFG80211OS_NewSta(IN PNET_DEV pNetDev, IN const PUCHAR mac_addr, IN const P
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0))
 /*KERNEL_VERSION 3,2,0*/
-	sinfo.filled = STATION_INFO_ASSOC_REQ_IES;
+	sinfo.filled = NL80211_STA_INFO_EXPECTED_THROUGHPUT;
 #elif defined(SUPPORT_ANDROID_HOSTAPD_ASSOC_REQ_IES)
 /*On Android platform with other kernel version(eg. 3.1.10)*/
 /*For hostapd, the IEs from the (Re)Association Request frame need to be made available*/
 /*If get error here, be sure patch the cfg80211_new_sta.patch into kernel*/
-	sinfo.filled = STATION_INFO_ASSOC_REQ_IES;
+	sinfo.filled = NL80211_STA_INFO_EXPECTED_THROUGHPUT;
 #endif /* endif */
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0))

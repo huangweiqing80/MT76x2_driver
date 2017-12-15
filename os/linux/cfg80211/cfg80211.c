@@ -811,7 +811,7 @@ static int mt76xx_cfg80211_get_sta(struct wiphy *wiphy, struct net_device *dev,
 	if (sta_info.TxRateFlags != RT_CMD_80211_TXRATE_LEGACY) {
 		sinfo->txrate.flags = RATE_INFO_FLAGS_MCS;
 		if (sta_info.TxRateFlags & RT_CMD_80211_TXRATE_BW_40)
-			sinfo->txrate.flags |= RATE_INFO_FLAGS_40_MHZ_WIDTH;
+			sinfo->txrate.flags |= RATE_INFO_FLAGS_VHT_MCS;
 
 		if (sta_info.TxRateFlags & RT_CMD_80211_TXRATE_SHORT_GI)
 			sinfo->txrate.flags |= RATE_INFO_FLAGS_SHORT_GI;
@@ -820,40 +820,40 @@ static int mt76xx_cfg80211_get_sta(struct wiphy *wiphy, struct net_device *dev,
 	} else
 		sinfo->txrate.legacy = sta_info.TxRateMCS;
 
-	sinfo->filled |= STATION_INFO_TX_BITRATE;
+	sinfo->filled |= NL80211_STA_INFO_TX_BITRATE;
 
 	/* fill signal */
 	sinfo->signal = sta_info.Signal;
-	sinfo->filled |= STATION_INFO_SIGNAL;
+	sinfo->filled |= NL80211_STA_INFO_SIGNAL;
 
 #ifdef CONFIG_AP_SUPPORT
 	/* fill tx count */
 	sinfo->tx_packets = sta_info.TxPacketCnt;
-	sinfo->filled |= STATION_INFO_TX_PACKETS;
+	sinfo->filled |= NL80211_STA_INFO_TX_PACKETS;
 
 	/* fill inactive time */
 	sinfo->inactive_time = sta_info.InactiveTime;
-	sinfo->filled |= STATION_INFO_INACTIVE_TIME;
+	sinfo->filled |= NL80211_STA_INFO_INACTIVE_TIME;
 #endif /* CONFIG_AP_SUPPORT */
 
 #ifdef CONFIG_STA_SUPPORT
 	/* fill tx/rx count */
 	sinfo->tx_packets = sta_info.tx_packets;
-	sinfo->filled |= STATION_INFO_TX_PACKETS;
+	sinfo->filled |= NL80211_STA_INFO_TX_PACKETS;
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 38)
 	sinfo->tx_retries = sta_info.tx_retries;
-	sinfo->filled |= STATION_INFO_TX_RETRIES;
+	sinfo->filled |= NL80211_STA_INFO_TX_RETRIES;
 	sinfo->tx_failed = sta_info.tx_failed;
-	sinfo->filled |= STATION_INFO_TX_FAILED;
+	sinfo->filled |= NL80211_STA_INFO_TX_FAILED;
 #endif /* LINUX_VERSION_CODE */
 
 	sinfo->rx_packets = sta_info.rx_packets;
-	sinfo->filled |= STATION_INFO_RX_PACKETS;
+	sinfo->filled |= NL80211_STA_INFO_RX_PACKETS;
 
 	/* fill inactive time */
 	sinfo->inactive_time = sta_info.InactiveTime;
-	sinfo->filled |= STATION_INFO_INACTIVE_TIME;
+	sinfo->filled |= NL80211_STA_INFO_INACTIVE_TIME;
 #endif /* CONFIG_STA_SUPPORT */
 
 	return 0;
@@ -1593,9 +1593,9 @@ static int CFG80211_OpsSurveyGet(IN struct wiphy *pWiphy,
 
 	/* return the information to upper layer */
 	pSurvey->channel = ((CFG80211_CB *) (SurveyInfo.pCfg80211))->pCfg80211_Channels;
-	pSurvey->filled = SURVEY_INFO_CHANNEL_TIME_BUSY | SURVEY_INFO_CHANNEL_TIME_EXT_BUSY;
-	pSurvey->channel_time_busy = SurveyInfo.ChannelTimeBusy;	/* unit: us */
-	pSurvey->channel_time_ext_busy = SurveyInfo.ChannelTimeExtBusy;
+	pSurvey->filled = SURVEY_INFO_TIME_BUSY | SURVEY_INFO_TIME_EXT_BUSY;
+	pSurvey->time_busy = SurveyInfo.ChannelTimeBusy;	/* unit: us */
+	pSurvey->time_ext_busy = SurveyInfo.ChannelTimeExtBusy;
 
 	CFG80211DBG(RT_DEBUG_INFO, ("80211> busy time = %ld %ld\n",
 				     (ULONG) SurveyInfo.ChannelTimeBusy,
